@@ -1,12 +1,15 @@
 package ies.tierno.Titanic.ServicioEmergencia;
 
-
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import ies.tierno.Titanic.Informes.IInformes;
+import ies.tierno.Titanic.Informes.Informes;
 
 public class ServicioEmergencia implements IServicioEmergencia {
 
@@ -56,5 +59,22 @@ public class ServicioEmergencia implements IServicioEmergencia {
     @Override
     public void recibirBotesAsignados(String id, int mujeres, int varones, int niños) {
         datosBotes.put(id, new int[]{mujeres, varones, niños});
+    }
+
+    @Override
+    public void generarInforme() {
+        IInformes informe = new Informes();
+        informe.generar(datosBotes, LocalDateTime.now());
+    }
+
+    public Map<String, int[]> getDatosBotes() {
+    return datosBotes;
+}
+
+
+    public static void main(String[] args) {
+        ServicioEmergencia servicio = new ServicioEmergencia();
+        servicio.enviarId();
+        servicio.generarInforme();
     }
 }
