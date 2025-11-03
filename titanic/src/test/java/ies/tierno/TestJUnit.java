@@ -4,6 +4,9 @@ import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import java.io.File;
+import java.time.LocalDateTime;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -11,6 +14,7 @@ import org.junit.jupiter.api.Test;
 
 
 import ies.tierno.Bote.Bote;
+import ies.tierno.Titanic.Informes.Informes;
 import ies.tierno.Titanic.ServicioEmergencia.ServicioEmergencia;
 
 
@@ -83,4 +87,85 @@ public class TestJUnit {
         assertArrayEquals(new int[]{10, 5, 3}, datos.get("B05"));
     }
 
+    //Tests para Informes
+
+
+   
+    @Test
+    void generarInformeCreaArchivoConContenido() {
+        Informes informes = new Informes();
+        Map<String, int[]> datos = new HashMap<>();
+        datos.put("B00", new int[]{5, 3, 2});
+        datos.put("B01", new int[]{4, 4, 2});
+
+
+        LocalDateTime fecha = LocalDateTime.now();
+        informes.generar(datos, fecha);
+
+
+        String nombreArchivo = String.format("Informe_%s.md",
+                fecha.format(java.time.format.DateTimeFormatter.ofPattern("yyyyMMdd_HHmmss")));
+
+
+        File archivo = new File(nombreArchivo);
+        assertTrue(archivo.exists());
+        assertTrue(archivo.length() > 0);
+        archivo.delete();
+    }
+
+
+    @Test
+    void generarInformeConDatosVaciosNoFalla() {
+        Informes informes = new Informes();
+        Map<String, int[]> datos = new HashMap<>();
+
+
+        LocalDateTime fecha = LocalDateTime.now();
+        informes.generar(datos, fecha);
+
+
+        String nombreArchivo = String.format("Informe_%s.md",
+                fecha.format(java.time.format.DateTimeFormatter.ofPattern("yyyyMMdd_HHmmss")));
+
+
+        File archivo = new File(nombreArchivo);
+        assertTrue(archivo.exists());
+        archivo.delete();
+    }
+
+
+      //Test general
+
+
+    @Test
+    void flujoCompletoSimuladoGeneraInforme() {
+        ServicioEmergencia servicio = new ServicioEmergencia();
+        Map<String, int[]> datosSimulados = new HashMap<>();
+
+
+        for (String id : servicio.generarIds()) {
+            Bote bote = new Bote(id);
+            bote.contarPasajeros();
+            String[] partes = bote.obtenerResultado().split(",");
+            datosSimulados.put(partes[0], new int[]{
+                    Integer.parseInt(partes[1]),
+                    Integer.parseInt(partes[2]),
+                    Integer.parseInt(partes[3])
+            });
+        }
+
+
+        Informes informes = new Informes();
+        LocalDateTime fecha = LocalDateTime.now();
+        informes.generar(datosSimulados, fecha);
+
+
+        String nombreArchivo = String.format("Informe_%s.md",
+                fecha.format(java.time.format.DateTimeFormatter.ofPattern("yyyyMMdd_HHmmss")));
+
+
+        File archivo = new File(nombreArchivo);
+        assertTrue(archivo.exists());
+    }
 }
+
