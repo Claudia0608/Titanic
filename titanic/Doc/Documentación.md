@@ -252,3 +252,6 @@ String nombreArchivo = "Informe_" + fecha.format(formatter) + ".md";
 ## CONCLUSIONES INDIVIDUALES
 ### CONCLUSIÓN CLAUDIA
 Me encargué de la clase Bote y de la lógica de ServicioEmergencia, donde trabajé en la generación de datos y en la ejecución de los procesos. Me aseguré de que cada bote devolviera su información correctamente y que se guardara bien en el sistema. Ha sido una parte clave para que todo funcione de forma coordinada y sin errores.
+
+### CONCLUSIÓN ALEJANDRO
+Yo hice la parte de los informes, los tests y parte de ServicioEmergencia. Organicé los datos recogidos, generé el informe en Markdown con los totales y la fecha, y validé que los métodos funcionan bien. Me centré en que el resultado final fuera claro, ordenado y que todo estuviera bien probado.
