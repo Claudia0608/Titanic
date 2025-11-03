@@ -2,16 +2,14 @@
 
 ## ÍNDICE
 
-- [¿QUÉ HACE ESTA APLICACIÓN?](#qué-hace-esta-aplicación)
-- [REQUISITOS DEL SISTEMA](#requisitos-del-sistema)
-- [COMO SE USA](#como-se-usa)
-  - [1. ABRIR EL PROGRAMA PRINCIPAL](#1-abrir-el-programa-principal)
-  - [2. EL PROGRAMA LANZA AUTOMÁTICAMENTE LOS BOTES](#2-el-programa-lanza-automáticamente-los-botes)
-  - [3. SE RECOGEN LOS DATOS DE CADA BOTE](#3-se-recogen-los-datos-de-cada-bote)
-  - [4. SE CREA UN INFORME CON LOS RESULTADOS](#4-se-crea-un-informe-con-los-resultados)
-- [INFORME GENERADO](#informe-generado)
-  - [CONTENIDO DEL INFORME](#contenido-del-informe)
-  - [EJEMPLO DE BOTE](#ejemplo-de-bote)
+- [MANUAL DE USUARIO](#manual-de-usuario)
+  - [ÍNDICE](#índice)
+  - [¿QUÉ HACE ESTA APLICACIÓN?](#qué-hace-esta-aplicación)
+  - [REQUISITOS DEL SISTEMA](#requisitos-del-sistema)
+  - [COMO SE USA](#como-se-usa)
+  - [INFORME GENERADO](#informe-generado)
+    - [CONTENIDO DEL INFORME](#contenido-del-informe)
+    - [EJEMPLO DE BOTE](#ejemplo-de-bote)
 
 
 ## ¿QUÉ HACE ESTA APLICACIÓN?
@@ -74,4 +72,4 @@ EL ARCHIVO INCLUYE:
         - Mujeres: 37
         - Varones: 28
         - Niños: 15
-```
+``` a
