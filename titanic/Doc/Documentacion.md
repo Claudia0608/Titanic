@@ -150,3 +150,43 @@ private static final String BLOQUE_DATOS = """
 void generar(Map<String, int[]> datosBotes, LocalDateTime fecha);
 ```
 ---
+
+## PROBLEMAS ENCONTRADOS
+
+**`ERROR EN LA DISTRIBUCIÓN DE PASAJEROS EN BOTE.JAVA:`** EN UNA VERSIÓN INICIAL, LA SUMA DE MUJERES, VARONES Y NIÑOS PODÍA SUPERAR EL TOTAL DE PASAJEROS GENERADO. ESTO OCURRÍA PORQUE SE USABAN TRES LLAMADAS INDEPENDIENTES A Random. LA SOLUCIÓN FUE CALCULAR EL TOTAL PRIMERO Y LUEGO DISTRIBUIRLO DE FORMA CONTROLADA:
+
+```java
+int total = random.nextInt(100) + 1;
+mujeres = random.nextInt(total + 1);
+varones = random.nextInt(total - mujeres + 1);
+niños = total - mujeres - varones;
+
+```
+
+**`NOMBRE INCORRECTO DE LA CLASE EN SERVICIOEMERGENCIA.JAVA:`** LA CONSTANTE CLASE_BOTE TENÍA UN PAQUETE MAL ESCRITO, LO QUE IMPEDÍA EJECUTAR LOS PROCESOS DE LOS BOTES. SE CORRIGIÓ ASÍ:
+
+```java
+private static final String CLASE_BOTE = "ies.tierno.Bote.Bote";
+```
+
+**`FALTA DE FORMATO EN LA SALIDA DE LOS BOTES:`** EN LAS PRIMERAS PRUEBAS, LA SALIDA DE CADA BOTE NO SE PODÍA LEER CORRECTAMENTE PORQUE NO SE USABA UN FORMATO FIJO. SE RESOLVIÓ USANDO String.format() PARA DEVOLVER LOS DATOS EN FORMATO CSV:
+
+```java
+return String.format("%s,%d,%d,%d", id, mujeres, varones, niños);
+```
+
+**`LECTURA INCOMPLETA DE LA SALIDA DEL PROCESO:`** SE USABA SOLO readLine() SIN BUCLE, LO QUE LIMITABA LA CAPTURA A UNA ÚNICA LÍNEA. SE MEJORÓ USANDO:
+
+```java
+while ((line = reader.readLine()) != null) {
+    String[] partes = line.split(COMA);
+    recibirBotesAsignados(partes[0], ...);
+}
+```
+
+**`NOMBRE DEL ARCHIVO DE INFORME SIN FECHA:`** EN UNA VERSIÓN INICIAL, EL INFORME SE LLAMABA SIEMPRE informe.md, LO QUE PROVOCABA QUE SE SOBRESCRIBIERA EN CADA EJECUCIÓN. SE IMPLEMENTÓ UN FORMATO DE FECHA Y HORA PARA GENERAR NOMBRES ÚNICOS:
+
+```java
+DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyyMMdd_HHmmss");
+String nombreArchivo = "Informe_" + fecha.format(formatter) + ".md";
+```
