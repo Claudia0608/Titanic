@@ -1,4 +1,19 @@
 # MANUAL DE USUARIO
+
+## ÍNDICE
+
+- [¿QUÉ HACE ESTA APLICACIÓN?](#qué-hace-esta-aplicación)
+- [REQUISITOS DEL SISTEMA](#requisitos-del-sistema)
+- [COMO SE USA](#como-se-usa)
+  - [1. ABRIR EL PROGRAMA PRINCIPAL](#1-abrir-el-programa-principal)
+  - [2. EL PROGRAMA LANZA AUTOMÁTICAMENTE LOS BOTES](#2-el-programa-lanza-automáticamente-los-botes)
+  - [3. SE RECOGEN LOS DATOS DE CADA BOTE](#3-se-recogen-los-datos-de-cada-bote)
+  - [4. SE CREA UN INFORME CON LOS RESULTADOS](#4-se-crea-un-informe-con-los-resultados)
+- [INFORME GENERADO](#informe-generado)
+  - [CONTENIDO DEL INFORME](#contenido-del-informe)
+  - [EJEMPLO DE BOTE](#ejemplo-de-bote)
+
+
 ## ¿QUÉ HACE ESTA APLICACIÓN?
 Es un programa que simula el rescate de personas en el Titanic. Se lanzan 20 botes salvavidas, cada uno calcula cuántas personas ha salvado (mujeres, hombres y niños), y al final se genera un informe con todos los datos.
 
@@ -8,3 +23,55 @@ Es un programa que simula el rescate de personas en el Titanic. Se lanzan 20 bot
 - EDITOR DE TEXTO.
 - ACCESO A TERMINAL O CONSOLA.
 
+## COMO SE USA
+
+1. `ABRIR EL PROGRAMA PRINCIPAL:` PARA EMPEZAR LA SIMULACIÓN, HAY QUE EJECUTAR EL PROGRAMA LLAMADO SERVICIOEMERGENCIA. ESTE PROGRAMA ES EL QUE SE ENCARGA DE ORGANIZAR TODO EL RESCATE. PARA EJECUTAR DEBEMOS ESCRIBIR ESTOS COMANDOS EN EL TERMINAL.
+
+    - COMPILAR CON ESTE COMANDO::
+        ```bash
+            javac -d target/classes src/main/java/ies/tierno/Bote/*.java src/main/java/ies/tierno/Titanic/Informes/*.java src/main/java/ies/tierno/Titanic/ServicioEmergencia/*.java
+        ```
+
+    - EJECUTAR CON ESTE COMANDO:
+        ```bash
+            java -cp target/classes ies.tierno.Titanic.ServicioEmergencia.ServicioEmergencia
+        ```
+
+2. `EL PROGRAMA LANZA AUTOMÁTICAMENTE LOS BOTES:` UNA VEZ QUE SE EJECUTA, EL SISTEMA CREA 20 BOTES SALVAVIDAS. CADA UNO CALCULA CUÁNTAS PERSONAS HA RESCATADO (MUJERES, HOMBRES Y NIÑOS). ESTO OCURRE DE FORMA AUTOMÁTICA, SIN QUE EL USUARIO TENGA QUE HACER NADA.
+
+3. `SE RECOGEN LOS DATOS DE CADA BOTE:` EL PROGRAMA GUARDA LA INFORMACIÓN QUE DEVUELVE CADA BOTE PARA SABER CUÁNTAS PERSONAS HA SALVADO CADA UNO.
+
+4. `SE CREA UN INFORME CON LOS RESULTADOS:` AL FINAL, EL PROGRAMA GENERA UN ARCHIVO DE TEXTO CON TODOS LOS DATOS RECOGIDOS. ESTE ARCHIVO SE GUARDA AUTOMÁTICAMENTE EN LA CARPETA DEL PROYECTO Y SE PUEDE ABRIR CON CUALQUIER EDITOR DE TEXTO (COMO EL BLOC DE NOTAS O WORD).
+
+## INFORME GENERADO
+EL INFORME SE GUARDA EN LA CARPETA RAÍZ DEL PROYECTO CON UN NOMBRE COMO:
+
+```java
+    Informe_20251103_113800.md
+```
+
+### CONTENIDO DEL INFORME
+EL ARCHIVO INCLUYE:
+
+- FECHA Y HORA DE EJECUCIÓN
+
+- DATOS POR CADA BOTE:
+
+    - TOTAL DE PERSONAS SALVADAS
+
+    - MUJERES
+
+    - VARONES
+
+    - NIÑOS
+
+- TOTAL DE TODOS LOS BOTES
+
+### EJEMPLO DE BOTE
+```markdown
+    ## Bote 01
+    - Total Salvados: 80
+        - Mujeres: 37
+        - Varones: 28
+        - Niños: 15
+```
