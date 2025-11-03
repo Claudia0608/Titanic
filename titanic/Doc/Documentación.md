@@ -249,4 +249,6 @@ DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyyMMdd_HHmmss");
 String nombreArchivo = "Informe_" + fecha.format(formatter) + ".md";
 ```
 
-ola
+## CONCLUSIONES INDIVIDUALES
+### CONCLUSIÓN CLAUDIA
+Me encargué de la clase Bote y de la lógica de ServicioEmergencia, donde trabajé en la generación de datos y en la ejecución de los procesos. Me aseguré de que cada bote devolviera su información correctamente y que se guardara bien en el sistema. Ha sido una parte clave para que todo funcione de forma coordinada y sin errores.
