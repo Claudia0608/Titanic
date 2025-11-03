@@ -43,3 +43,110 @@ EN ESTA PRÁCTICA TENEMOS QUE TRABAJAR CON LA GESTIÓN DE LOS BOTES SALVAVIDAS D
 ### PRUEBAS GENERALES
 
 - POR ÚLTIMO, REALIZAREMOS UNA PRUEBA QUE SIMULE TODO EL PROCESO COMPLETO: SE CREARÁN LOS BOTES, SE GENERARÁN LOS DATOS, SE RECOGERÁN Y SE ELABORARÁ EL INFORME. ASÍ NOS ASEGURAREMOS DE QUE TODO EL SISTEMA FUNCIONE DE PRINCIPIO A FIN SIN ERRORES.
+
+---
+
+## ELEMENTOS DESTACABLES DEL DESARROLLO
+### BOTE.JAVA Y IBOTE.JAVA
+**`SIMULACIÓN CON ALEATORIEDAD CONTROLADA:`** 
+- EL MÉTODO contarPasajeros() UTILIZA Random PARA GENERAR UN NÚMERO TOTAL DE PASAJEROS Y DISTRIBUIRLOS ENTRE MUJERES, VARONES Y NIÑOS DE FORMA COHERENTE:
+
+```java
+    int total = random.nextInt(100) + 1;
+    mujeres = random.nextInt(total + 1);
+    varones = random.nextInt(total - mujeres + 1);
+    niños = total - mujeres - varones;
+```
+
+**`SALIDA ESTRUCTURADA PARA COMUNICACIÓN ENTRE PROCESOS:`** 
+- EL MÉTODO obtenerResultado() DEVUELVE LOS DATOS EN FORMATO CSV:
+
+```java
+return String.format("%s,%d,%d,%d", id, mujeres, varones, niños);
+```
+
+**`INTERFAZ IBOTE COMO CONTRATO FUNCIONAL:`** 
+- DEFINE LOS MÉTODOS ESENCIALES PARA CUALQUIER CLASE QUE REPRESENTE UN BOTE:
+
+```java
+void contarPasajeros();
+String obtenerResultado();
+```
+---
+
+### SERVICIOEMERGENCIA.JAVA Y ISERVICIOEMERGENCIA.JAVA
+**`GENERACIÓN DE IDENTIFICADORES ÚNICOS:`** 
+- EL MÉTODO generarIds() CREA 20 IDS CON FORMATO B00, B01, ..., B19:
+
+```java
+String.format(FORMATO_ID_BOTE, i);
+```
+
+**`EJECUCIÓN DE PROCESOS EXTERNOS CON LECTURA ROBUSTA:`** 
+- EL MÉTODO enviarId() LANZA CADA BOTE COMO PROCESO INDEPENDIENTE Y LEE SU SALIDA LÍNEA POR LÍNEA:
+
+```java
+BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream()));
+String line;
+while ((line = reader.readLine()) != null) {
+    String[] partes = line.split(COMA);
+    recibirBotesAsignados(partes[0], ...);
+}
+```
+
+**`ALMACENAMIENTO EFICIENTE DE DATOS:`** 
+- LOS DATOS DE CADA BOTE SE GUARDAN EN UN Map<String, int[]>, DONDE LA CLAVE ES EL ID DEL BOTE Y EL VALOR ES UN ARRAY CON LOS TRES GRUPOS DE PASAJEROS:
+
+```java
+datosBotes.put(id, new int[]{mujeres, varones, niños});
+```
+
+**`INTERFAZ ISERVICIOEMERGENCIA COMO GUÍA DE IMPLEMENTACIÓN:`** 
+- DEFINE LOS MÉTODOS CLAVE DEL SERVICIO:
+
+```java
+List<String> generarIds();
+void enviarId();
+void recibirBotesAsignados(...);
+void generarInforme();
+```
+--- 
+
+### INFORMES.JAVA Y IINFORMES.JAVA
+**`FORMATO MARKDOWN PROFESIONAL:`**
+- EL INFORME SE GENERA CON ENCABEZADOS, BLOQUES DE DATOS Y TOTALES, USANDO String.format() Y BLOQUES MULTILÍNEA:
+
+```java
+private static final String BLOQUE_DATOS = """
+    ## %s
+
+
+    - Total Salvados %d
+      - Mujeres %d
+      - Varones %d
+      - Niños %d
+
+
+    """;
+```
+
+**`USO DE DateTimeFormatter PARA NOMBRES DE ARCHIVO Y ENCABEZADOS:`**
+- SE EMPLEAN DOS FORMATOS DISTINTOS PARA FECHA:
+  - PARA EL NOMBRE DEL ARCHIVO:
+```java
+"yyyyMMdd_HHmmss"
+```
+
+- PARA EL ENCABEZADO DEL INFORME:
+
+```java
+"dd/MM/yyyy 'a las' HH:mm:ss"
+```
+
+**`INTERFAZ IINFORMES COMO PUNTO DE EXTENSIÓN:`**
+- DEFINE EL MÉTODO generar(...) QUE PERMITE IMPLEMENTAR DISTINTOS TIPOS DE INFORMES EN EL FUTURO:
+
+```java
+void generar(Map<String, int[]> datosBotes, LocalDateTime fecha);
+```
+---
