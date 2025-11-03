@@ -150,3 +150,4 @@ private static final String BLOQUE_DATOS = """
 void generar(Map<String, int[]> datosBotes, LocalDateTime fecha);
 ```
 ---
+
