@@ -18,9 +18,8 @@ public class ServicioEmergencia implements IServicioEmergencia {
     private static final String FORMATO_ID_BOTE = "B%02d";
     private static final String COMANDO_JAVA = "java";
     private static final String OPCION_CLASSPATH = "-cp";
-    private static final String CLASE_BOTE = "com.example.Bote.Bote";
+    private static final String CLASE_BOTE = "ies.tierno.Bote.Bote";
     private static final String COMA = ",";
-    private static final String CLASSPATH = "java.class.path";
 
     private final Map<String, int[]> datosBotes = new HashMap<>();
 
@@ -35,17 +34,16 @@ public class ServicioEmergencia implements IServicioEmergencia {
 
     @Override
     public void enviarId() {
+        String classpath = System.getProperty("java.class.path");
         for (String id : generarIds()) {
             try {
                 Process process = Runtime.getRuntime().exec(new String[]{
-                    COMANDO_JAVA, OPCION_CLASSPATH, CLASSPATH, CLASE_BOTE, id
+                    COMANDO_JAVA, OPCION_CLASSPATH, classpath, CLASE_BOTE, id
                 });
 
                 BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream()));
-                String line = reader.readLine();
-                process.waitFor();
-
-                if (line != null) {
+                String line;
+                while ((line = reader.readLine()) != null) {
                     String[] partes = line.split(COMA);
                     recibirBotesAsignados(partes[0],
                         Integer.parseInt(partes[1]),
