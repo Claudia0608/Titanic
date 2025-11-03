@@ -255,3 +255,7 @@ Me encargué de la clase Bote y de la lógica de ServicioEmergencia, donde traba
 
 ### CONCLUSIÓN ALEJANDRO
 Yo hice la parte de los informes, los tests y parte de ServicioEmergencia. Organicé los datos recogidos, generé el informe en Markdown con los totales y la fecha, y validé que los métodos funcionan bien. Me centré en que el resultado final fuera claro, ordenado y que todo estuviera bien probado.
+
+## ANEXO
+### REPOSITORIO GITHUB
+https://github.com/Claudia0608/Titanic
